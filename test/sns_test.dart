@@ -21,9 +21,7 @@ void main() {
         ..body = "Hello");
 
     try {
-      var resp = await client.sendAPNSNotification("ios",
-          "arn:aws:sns:us-east-1:414472037852:endpoint/APNS_SANDBOX/dart_test/9844c45f-e585-3a5c-b579-993236542627",
-          note);
+      var resp = await client.sendAPNSNotification("ios", "9844c45f-e585-3a5c-b579-993236542627", note);
       expect(resp, true);
     } catch (e) {
       fail("Should succeed $e");

@@ -48,7 +48,7 @@ class SNSClient {
     return endpointARN;
   }
 
-  Future<bool> sendAPNSNotification(String applicationResource, String targetResourceName, APNSNotification notification) async {
+  Future<bool> sendAPNSNotification(String applicationResource, String subscriptionID, APNSNotification notification) async {
     var resource = resources[applicationResource];
     if (resource == null) {
       throw new SNSClientException(500, "Invalid applicationResource $applicationResource.");
@@ -63,9 +63,10 @@ class SNSClient {
       ..host = "sns.${resource.region}.amazonaws.com";
     req.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 
+    var targetARN = "arn:aws:sns:${resource.region}:${resource.accountID}:endpoint/${resource.platform}/${resource.applicationName}/$subscriptionID";
     var values = {
       "Action" : "Publish",
-      "TargetArn" : targetResourceName,
+      "TargetArn" : targetARN,
       "Message" : JSON.encode({resource.platform : JSON.encode(notification.asMap())}),
       "MessageStructure" : "json"
     };
