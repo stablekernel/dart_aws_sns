@@ -111,7 +111,6 @@ class SNSRequest {
     return "AWS4-HMAC-SHA256 Credential=$credentialScope, SignedHeaders=$signedHeaders, Signature=$signature";
   }
 
-
   Future<http.Response> execute() async {
     timestamp = new DateTime.now().toUtc();
     if (method == "POST") {

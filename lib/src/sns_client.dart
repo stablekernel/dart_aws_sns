@@ -1,8 +1,16 @@
 part of aws_sns;
 
 class SNSClient {
-  Map<String, SNSResource> resources;
-  SNSClient(this.resources);
+  Map<String, SNSResource> resources = {};
+  String accessKey;
+  String secretKey;
+
+  void addResource(String resourceName, SNSResource resource) {
+    resources[resourceName] = resource;
+  }
+  void removeResource(String resourceName) {
+    resources.remove(resourceName);
+  }
 
   Future<String> registerEndpoint(String applicationResource, String token, String userAssociationValue) async {
     var resource = resources[applicationResource];
@@ -14,8 +22,8 @@ class SNSClient {
         ..region = resource.region
         ..service = "sns"
         ..method = "POST"
-        ..accessKey = "AKIAJAF6H4WQNE4TARYQ" // HIDE
-        ..secretKey = "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" // HIDE
+        ..accessKey = accessKey
+        ..secretKey = secretKey
         ..host = "sns.${resource.region}.amazonaws.com";
     req.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 
@@ -23,7 +31,7 @@ class SNSClient {
       "Action" : "CreatePlatformEndpoint",
       "CustomUserData" : userAssociationValue,
       "Token" : token,
-      "PlatformApplicationArn" : "arn:aws:sns:us-east-1:414472037852:app/APNS_SANDBOX/dart_test"
+      "PlatformApplicationArn" : "arn:aws:sns:${resource.region}:${resource.accountID}:app/${resource.platform}/${resource.applicationName}"
     };
     req.requestBody = values.keys.map((k) {
       return "$k=${Uri.encodeQueryComponent(values[k])}";
@@ -50,15 +58,15 @@ class SNSClient {
       ..region = resource.region
       ..service = "sns"
       ..method = "POST"
-      ..accessKey = "AKIAJAF6H4WQNE4TARYQ" // HIDE
-      ..secretKey = "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" // HIDE
+      ..accessKey = accessKey
+      ..secretKey = secretKey
       ..host = "sns.${resource.region}.amazonaws.com";
     req.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 
     var values = {
       "Action" : "Publish",
       "TargetArn" : targetResourceName,
-      "Message" : JSON.encode({resource.type : JSON.encode(notification.asMap())}),
+      "Message" : JSON.encode({resource.platform : JSON.encode(notification.asMap())}),
       "MessageStructure" : "json"
     };
 
@@ -76,13 +84,12 @@ class SNSClient {
 }
 
 class SNSResource {
-  String type;
+  String platform;
   String region;
   String accountID;
-  String topicName;
-  String subscriptionID;
+  String applicationName;
 
-  SNSResource(this.type, this.region, this.accountID, this.topicName, this.subscriptionID);
+  SNSResource(this.platform, this.region, this.accountID, this.applicationName);
 }
 
 class SNSClientException implements Exception {
