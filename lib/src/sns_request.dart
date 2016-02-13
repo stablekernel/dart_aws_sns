@@ -50,7 +50,6 @@ class SNSRequest {
       return "${Uri.encodeQueryComponent(key)}=${Uri.encodeQueryComponent(queryParameters[key])}";
     });
 
-
     return items.join("&") ?? "";
   }
 
