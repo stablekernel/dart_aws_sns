@@ -1,6 +1,6 @@
 part of aws_sns;
 
-class SNSClient {
+class Client {
   String accessKey;
   String secretKey;
   Map<String, PlatformApplication> platformApplications = {};

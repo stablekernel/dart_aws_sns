@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 
 void main() {
-  var client = new SNSClient()
+  var client = new Client()
     ..accessKey = "AKIAJAF6H4WQNE4TARYQ"
     ..secretKey = "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";
 
