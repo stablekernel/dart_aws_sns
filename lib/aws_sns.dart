@@ -7,5 +7,6 @@ import 'package:crypto/crypto.dart';
 import 'dart:convert';
 
 part 'src/sns_payload.dart';
+part 'src/sns_model.dart';
 part 'src/sns_client.dart';
 part 'src/sns_request.dart';

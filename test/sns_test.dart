@@ -7,12 +7,14 @@ void main() {
     ..accessKey = "AKIAJAF6H4WQNE4TARYQ"
     ..secretKey = "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";
 
-  var resource = new SNSResource("APNS_SANDBOX", "us-east-1", "414472037852", "dart_test");
-  client.addResource("ios", resource);
+  var platformApp = new PlatformApplication("us-east-1", "414472037852", Platform.apnsSandbox, "dart_test");
+  client.platformApplications["iOS"] = platformApp;
 
+  var subscribedEndpoint = null;
   test("Create endpoint", () async {
-    var resp = await client.registerEndpoint("ios", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "1");
+    var resp = await client.registerEndpoint(client.platformApplications["iOS"], "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "1");
     expect(resp, startsWith("arn:aws:sns"));
+    subscribedEndpoint = resp.split("/").last;
   });
 
   test("Send notification", () async {
@@ -21,7 +23,7 @@ void main() {
         ..body = "Hello");
 
     try {
-      var resp = await client.sendAPNSNotification("ios", "9844c45f-e585-3a5c-b579-993236542627", note);
+      var resp = await client.sendAPNSNotification(client.platformApplications["iOS"].endpointForID(subscribedEndpoint), note);
       expect(resp, true);
     } catch (e) {
       fail("Should succeed $e");

@@ -1,37 +1,25 @@
 part of aws_sns;
 
 class SNSClient {
-  Map<String, SNSResource> resources = {};
   String accessKey;
   String secretKey;
+  Map<String, PlatformApplication> platformApplications = {};
 
-  void addResource(String resourceName, SNSResource resource) {
-    resources[resourceName] = resource;
-  }
-  void removeResource(String resourceName) {
-    resources.remove(resourceName);
-  }
-
-  Future<String> registerEndpoint(String applicationResource, String token, String userAssociationValue) async {
-    var resource = resources[applicationResource];
-    if (resource == null) {
-      throw new SNSClientException(500, "Invalid applicationResource $applicationResource.");
-    }
-
+  Future<String> registerEndpoint(PlatformApplication app, String token, String userAssociationValue) async {
     var req = new SNSRequest()
-        ..region = resource.region
-        ..service = "sns"
-        ..method = "POST"
-        ..accessKey = accessKey
-        ..secretKey = secretKey
-        ..host = "sns.${resource.region}.amazonaws.com";
+      ..method = "POST"
+      ..region = app.region
+      ..service = app.service
+      ..accessKey = accessKey
+      ..secretKey = secretKey
+      ..host = app.host;
     req.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 
     var values = {
       "Action" : "CreatePlatformEndpoint",
       "CustomUserData" : userAssociationValue,
       "Token" : token,
-      "PlatformApplicationArn" : "arn:aws:sns:${resource.region}:${resource.accountID}:app/${resource.platform}/${resource.applicationName}"
+      "PlatformApplicationArn" : app.asARN()
     };
     req.requestBody = values.keys.map((k) {
       return "$k=${Uri.encodeQueryComponent(values[k])}";
@@ -48,26 +36,21 @@ class SNSClient {
     return endpointARN;
   }
 
-  Future<bool> sendAPNSNotification(String applicationResource, String subscriptionID, APNSNotification notification) async {
-    var resource = resources[applicationResource];
-    if (resource == null) {
-      throw new SNSClientException(500, "Invalid applicationResource $applicationResource.");
-    }
-
+  Future<bool> sendAPNSNotification(PlatformApplicationEndpoint app, APNSNotification notification) async {
     var req = new SNSRequest()
-      ..region = resource.region
-      ..service = "sns"
       ..method = "POST"
+      ..region = app.platformApplication.region
+      ..service = app.platformApplication.service
       ..accessKey = accessKey
       ..secretKey = secretKey
-      ..host = "sns.${resource.region}.amazonaws.com";
+      ..host = app.platformApplication.host;
     req.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 
-    var targetARN = "arn:aws:sns:${resource.region}:${resource.accountID}:endpoint/${resource.platform}/${resource.applicationName}/$subscriptionID";
+    var targetARN = app.asARN();
     var values = {
       "Action" : "Publish",
       "TargetArn" : targetARN,
-      "Message" : JSON.encode({resource.platform : JSON.encode(notification.asMap())}),
+      "Message" : JSON.encode({app.platformApplication.platformString : JSON.encode(notification.asMap())}),
       "MessageStructure" : "json"
     };
 
@@ -82,15 +65,6 @@ class SNSClient {
 
     return true;
   }
-}
-
-class SNSResource {
-  String platform;
-  String region;
-  String accountID;
-  String applicationName;
-
-  SNSResource(this.platform, this.region, this.accountID, this.applicationName);
 }
 
 class SNSClientException implements Exception {

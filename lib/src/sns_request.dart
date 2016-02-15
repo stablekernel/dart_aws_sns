@@ -14,7 +14,6 @@ class SNSRequest {
   String secretKey;
   String service;
   String region;
-  String endpoint;
   String path;
   Map<String, String> headers = {};
 
