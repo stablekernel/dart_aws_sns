@@ -27,7 +27,7 @@ class Client {
 
     var response = await req.execute();
     if (response.statusCode != 200) {
-      throw new SNSClientException(response.statusCode, response.body);
+      throw new ClientException(response.statusCode, response.body);
     }
 
     var regex = new RegExp("<EndpointArn>([^<]*)<\\/EndpointArn>");
@@ -38,7 +38,7 @@ class Client {
 
   Future<bool> sendGCMNotification(PlatformApplicationEndpoint app, GCMNotification notification) async {
     if (app.platformApplication.platform != Platform.gcm) {
-      throw new SNSClientException(500, "Trying to send GCM notification to non-GCM endpoint.");
+      throw new ClientException(500, "Trying to send GCM notification to non-GCM endpoint.");
     }
 
     var req = new SNSRequest()
@@ -64,7 +64,7 @@ class Client {
 
     var response = await req.execute();
     if (response.statusCode != 200) {
-      throw new SNSClientException(response.statusCode, response.body);
+      throw new ClientException(response.statusCode, response.body);
     }
 
     return true;
@@ -72,7 +72,7 @@ class Client {
 
   Future<bool> sendAPNSNotification(PlatformApplicationEndpoint app, APNSNotification notification) async {
     if (app.platformApplication.platform != Platform.apns || app.platformApplication.platform != Platform.apnsSandbox) {
-      throw new SNSClientException(500, "Trying to send APNS notification to non-APNS endpoint.");
+      throw new ClientException(500, "Trying to send APNS notification to non-APNS endpoint.");
     }
 
     var req = new SNSRequest()
@@ -98,17 +98,17 @@ class Client {
 
     var response = await req.execute();
     if (response.statusCode != 200) {
-      throw new SNSClientException(response.statusCode, response.body);
+      throw new ClientException(response.statusCode, response.body);
     }
 
     return true;
   }
 }
 
-class SNSClientException implements Exception {
+class ClientException implements Exception {
   String message;
   int statusCode;
-  SNSClientException(this.statusCode, this.message);
+  ClientException(this.statusCode, this.message);
 
   String toString() {
     return "SNSClientException: $statusCode $message";
