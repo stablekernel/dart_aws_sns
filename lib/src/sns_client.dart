@@ -36,7 +36,45 @@ class SNSClient {
     return endpointARN;
   }
 
+  Future<bool> sendGCMNotification(PlatformApplicationEndpoint app, GCMNotification notification) async {
+    if (app.platformApplication.platform != Platform.gcm) {
+      throw new SNSClientException(500, "Trying to send GCM notification to non-GCM endpoint.");
+    }
+
+    var req = new SNSRequest()
+      ..method = "POST"
+      ..region = app.platformApplication.region
+      ..service = app.platformApplication.service
+      ..accessKey = accessKey
+      ..secretKey = secretKey
+      ..host = app.platformApplication.host;
+    req.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+
+    var targetARN = app.asARN();
+    var values = {
+      "Action" : "Publish",
+      "TargetArn" : targetARN,
+      "Message" : JSON.encode({app.platformApplication.platformString : JSON.encode(notification.asMap())}),
+      "MessageStructure" : "json"
+    };
+
+    req.requestBody = values.keys.map((k) {
+      return "$k=${Uri.encodeQueryComponent(values[k])}";
+    }).join("&");
+
+    var response = await req.execute();
+    if (response.statusCode != 200) {
+      throw new SNSClientException(response.statusCode, response.body);
+    }
+
+    return true;
+  }
+
   Future<bool> sendAPNSNotification(PlatformApplicationEndpoint app, APNSNotification notification) async {
+    if (app.platformApplication.platform != Platform.apns || app.platformApplication.platform != Platform.apnsSandbox) {
+      throw new SNSClientException(500, "Trying to send APNS notification to non-APNS endpoint.");
+    }
+
     var req = new SNSRequest()
       ..method = "POST"
       ..region = app.platformApplication.region

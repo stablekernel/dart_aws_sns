@@ -1,6 +1,56 @@
 part of aws_sns;
 
+class GCMNotification {
+  GCMNotification();
+
+  GCMNotification.withBody(this.message);
+
+  String title;
+  String message;
+  String url;
+
+  Map<String, dynamic> otherValues;
+
+  Map asMap() {
+    var map = {};
+
+    if (hasNotification) {
+      var notificationMap = {};
+      if (message != null) {
+        notificationMap["body"] = message;
+      }
+
+      if (title != null) {
+        notificationMap["title"] = title;
+      }
+
+      if (url != null) {
+        notificationMap["url"] = url;
+      }
+      map["notification"] = notificationMap;
+    }
+
+    if (hasData) {
+      map["data"] = otherValues;
+    }
+
+    return map;
+  }
+
+  bool get hasNotification {
+    return message != null || url != null;
+  }
+
+  bool get hasData {
+    return otherValues != null && otherValues.length > 0;
+  }
+}
 class APNSNotification {
+  APNSNotification();
+  APNSNotification.withBody(String body) {
+    alert = new APNSAlert.withBody(body);
+  }
+
   APNSAlert alert;
   int badge;
   String soundFilePath;
@@ -46,6 +96,9 @@ class APNSNotification {
 }
 
 class APNSAlert {
+  APNSAlert();
+  APNSAlert.withBody(this.body);
+
   String title;
   String body;
   String localizedTitleKey;
