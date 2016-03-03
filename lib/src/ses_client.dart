@@ -4,14 +4,15 @@ class SESClient implements AWSClient {
   String accessKey;
   String secretKey;
 
-  Future<bool> sendEmail(Email email, Stuff stuff) async {
+  Future<bool> sendEmail(Email email, {EmailOptions options}) async {
+    options ??= new EmailOptions();
     var req = new AWSRequest()
       ..method = "POST"
-      ..region = stuff.region
-      ..service = stuff.service
+      ..region = options.region
+      ..service = options.service
       ..accessKey = accessKey
       ..secretKey = secretKey
-      ..host = stuff.host;
+      ..host = options.host;
     req.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 
     var emailMap = email.asMap();

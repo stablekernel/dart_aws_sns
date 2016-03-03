@@ -1,9 +1,9 @@
 part of aws_dart;
 
-class Stuff {
-  String region;
-  String service;
-  String host;
+class EmailOptions {
+  String region = "us-east-1";
+  String service = "ses";
+  String get host => "email.$region.amazonaws.com";
 }
 
 class Email {
