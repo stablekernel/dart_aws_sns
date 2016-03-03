@@ -71,7 +71,7 @@ class Client {
   }
 
   Future<bool> sendAPNSNotification(PlatformApplicationEndpoint app, APNSNotification notification) async {
-    if (app.platformApplication.platform != Platform.apns || app.platformApplication.platform != Platform.apnsSandbox) {
+    if (!(app.platformApplication.platform == Platform.apns || app.platformApplication.platform == Platform.apnsSandbox)) {
       throw new ClientException(500, "Trying to send APNS notification to non-APNS endpoint.");
     }
 
