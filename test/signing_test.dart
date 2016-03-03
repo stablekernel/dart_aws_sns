@@ -1,4 +1,4 @@
-import 'package:aws_sns/aws_sns.dart';
+import 'package:aws_sns/aws_dart.dart';
 import 'package:test/test.dart';
 
 void main() {

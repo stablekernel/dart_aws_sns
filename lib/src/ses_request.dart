@@ -1,6 +1,7 @@
 part of aws_dart;
 
-class SNSRequest {
+class SESRequest {
+
   String scheme = "https://";
   String method;
   String _host;
@@ -15,6 +16,7 @@ class SNSRequest {
   String service;
   String region;
   String path;
+  String version;
   Map<String, String> headers = {};
 
   DateTime _timestamp;
@@ -77,7 +79,7 @@ class SNSRequest {
 
   String get bodyHash {
     var sha = new SHA256()
-        ..add(UTF8.encode(requestBody));
+      ..add(UTF8.encode(requestBody));
     return toHex(sha.close());
   }
 
@@ -148,9 +150,9 @@ class SNSRequest {
     return [dateAsString, region, service, "aws4_request"]
         .map((str) => UTF8.encode(str))
         .fold(initialKey, (key, value) {
-          var hmac = new HMAC(new SHA256(), key);
-          hmac.add(value);
-          return hmac.close();
-        });
+      var hmac = new HMAC(new SHA256(), key);
+      hmac.add(value);
+      return hmac.close();
+    });
   }
 }

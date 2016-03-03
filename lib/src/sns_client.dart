@@ -1,6 +1,6 @@
-part of aws_sns;
+part of aws_dart;
 
-class Client {
+class SNSClient {
   String accessKey;
   String secretKey;
   Map<String, PlatformApplication> platformApplications = {};

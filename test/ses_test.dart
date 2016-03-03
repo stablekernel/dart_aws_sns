@@ -3,12 +3,20 @@ import 'package:test/test.dart';
 
 
 void main() {
-  var client = new SNSClient()
+  var client = new SESClient()
     ..accessKey = "AKIAJAF6H4WQNE4TARYQ"
     ..secretKey = "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";
 
-  var platformApp = new PlatformApplication("us-east-1", "414472037852", Platform.apnsSandbox, "dart_test");
-  client.platformApplications["iOS"] = platformApp;
+  var email = new Email()
+    ..source = "test@stablekernel.com"
+    ..destination = (new Destination()..toAddresses = ["alex.nachlas@stablekernel.com"])
+    ..message = (new Message()
+      ..body = (new Body()..text = (new Content()..data= "Hello"))
+      ..subject = (new Content()..data = "Test"));
+  var stuff = new Stuff()
+    ..region = "us-east-1"
+    ..service = "ses"
+    ..host = "";
 
   var subscribedEndpoint = null;
   test("Create endpoint", () async {
