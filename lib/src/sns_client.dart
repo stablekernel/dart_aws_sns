@@ -1,12 +1,12 @@
 part of aws_dart;
 
-class SNSClient {
+class SNSClient implements AWSClient {
   String accessKey;
   String secretKey;
   Map<String, PlatformApplication> platformApplications = {};
 
   Future<String> registerEndpoint(PlatformApplication app, String token, String userAssociationValue) async {
-    var req = new SNSRequest()
+    var req = new AWSRequest()
       ..method = "POST"
       ..region = app.region
       ..service = app.service
@@ -41,7 +41,7 @@ class SNSClient {
       throw new ClientException(500, "Trying to send GCM notification to non-GCM endpoint.");
     }
 
-    var req = new SNSRequest()
+    var req = new AWSRequest()
       ..method = "POST"
       ..region = app.platformApplication.region
       ..service = app.platformApplication.service
@@ -75,7 +75,7 @@ class SNSClient {
       throw new ClientException(500, "Trying to send APNS notification to non-APNS endpoint.");
     }
 
-    var req = new SNSRequest()
+    var req = new AWSRequest()
       ..method = "POST"
       ..region = app.platformApplication.region
       ..service = app.platformApplication.service
@@ -102,15 +102,5 @@ class SNSClient {
     }
 
     return true;
-  }
-}
-
-class ClientException implements Exception {
-  String message;
-  int statusCode;
-  ClientException(this.statusCode, this.message);
-
-  String toString() {
-    return "SNSClientException: $statusCode $message";
   }
 }

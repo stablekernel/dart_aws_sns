@@ -1,11 +1,11 @@
 part of aws_dart;
 
-class SESClient {
+class SESClient implements AWSClient {
   String accessKey;
   String secretKey;
 
   Future<bool> sendEmail(Email email, Stuff stuff) async {
-    var req = new SESRequest()
+    var req = new AWSRequest()
       ..method = "POST"
       ..region = stuff.region
       ..service = stuff.service
@@ -14,16 +14,10 @@ class SESClient {
       ..host = stuff.host;
     req.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
 
-    var values = {
-      "Action" : "SendEmail",
-      "Source" : email.source,
-      "Destination.ToAddresses.1" : email.destination.toAddresses.first,
-      "Message.Body.Text.Data" : email.message.body.text.data,
-      "Subject.Text.Data" : email.message.subject.data
-    };
-
-    req.requestBody = values.keys.map((k) {
-      return "$k=${Uri.encodeQueryComponent(values[k])}";
+    var emailMap = email.asMap();
+    emailMap["Action"] = "SendEmail";
+    req.requestBody = emailMap.keys.map((k) {
+      return "$k=${Uri.encodeQueryComponent(emailMap[k])}";
     }).join("&");
 
     var response = await req.execute();
