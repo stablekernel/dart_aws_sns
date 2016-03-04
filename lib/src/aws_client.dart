@@ -11,6 +11,6 @@ class ClientException implements Exception {
   ClientException(this.statusCode, this.message);
 
   String toString() {
-    return "SNSClientException: $statusCode $message";
+    return "AWSClientException: $statusCode $message";
   }
 }

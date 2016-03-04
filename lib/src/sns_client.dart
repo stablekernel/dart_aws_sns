@@ -1,8 +1,6 @@
 part of aws_dart;
 
-class SNSClient implements AWSClient {
-  String accessKey;
-  String secretKey;
+class SNSClient extends AWSClient {
   Map<String, PlatformApplication> platformApplications = {};
 
   Future<String> registerEndpoint(PlatformApplication app, String token, String userAssociationValue) async {

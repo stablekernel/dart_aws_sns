@@ -1,8 +1,6 @@
 part of aws_dart;
 
-class SESClient implements AWSClient {
-  String accessKey;
-  String secretKey;
+class SESClient extends AWSClient {
 
   Future<bool> sendEmail(Email email, {EmailOptions options}) async {
     options ??= new EmailOptions();
