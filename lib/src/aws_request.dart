@@ -1,6 +1,6 @@
-part of aws_sns;
+part of aws_dart;
 
-class SNSRequest {
+class AWSRequest {
   String scheme = "https://";
   String method;
   String _host;

@@ -1,4 +1,4 @@
-part of aws_sns;
+part of aws_dart;
 
 class GCMNotification {
   GCMNotification();
