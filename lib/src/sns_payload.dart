@@ -83,10 +83,8 @@ class APNSNotification {
     }
 
     var map = {};
-    if (aps.length > 0) {
-      map["aps"] = aps;
-    }
-
+    map["aps"] = aps;
+  
     if (otherValues != null) {
       map.addAll(otherValues);
     }
