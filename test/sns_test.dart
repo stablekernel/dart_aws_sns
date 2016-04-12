@@ -29,4 +29,14 @@ void main() {
       fail("Should succeed $e");
     }
   });
+
+  test("Send silent notification", () async {
+    var notif = new APNSNotification()..otherValues = {"t" : "test", "id" : 5};
+    try {
+      var resp = await client.sendAPNSNotification(client.platformApplications["iOS"].endpointForID(subscribedEndpoint), notif);
+      expect(resp, true);
+    } catch (e) {
+      fail("Threw exception $e");
+    }
+  });
 }
