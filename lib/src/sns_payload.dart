@@ -30,9 +30,7 @@ class GCMNotification {
       map["notification"] = notificationMap;
     }
 
-    if (hasData) {
-      map["data"] = otherValues;
-    }
+    map["data"] = hasData ? otherValues : {};
 
     return map;
   }
