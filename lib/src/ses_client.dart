@@ -1,9 +1,14 @@
 part of aws_dart;
 
 class SESClient extends AWSClient {
+  Map<String, EmailOptions> emailOptions = {};
 
-  Future<bool> sendEmail(Email email, {EmailOptions options}) async {
-    options ??= new EmailOptions();
+  Future<bool> sendEmail(String emailOptionKey, Email email) async {
+    var options = emailOptions[emailOptionKey];
+    if (options == null) {
+      throw new AWSException(500, "No options available for $emailOptionKey", null);
+    }
+
     var req = new AWSRequest()
       ..method = "POST"
       ..region = options.region
@@ -20,8 +25,9 @@ class SESClient extends AWSClient {
     }).join("&");
 
     var response = await req.execute();
-    if (response.statusCode != 200) {
-      throw new ClientException(response.statusCode, response.body);
+    var error = response.error;
+    if (error != null) {
+      throw error;
     }
     return true;
   }

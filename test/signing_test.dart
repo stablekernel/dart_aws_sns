@@ -3,14 +3,14 @@ import 'package:test/test.dart';
 
 void main() {
   test("Signature", () {
-    var signingKey = SNSRequest.calculateSigningKey("wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY", new DateTime(2015, 8, 30), "us-east-1", "service");
+    var signingKey = AWSRequest.calculateSigningKey("wJalrXUtnFEMI/K7MDENG+bPxRfiCYEXAMPLEKEY", new DateTime(2015, 8, 30), "us-east-1", "service");
     var stringToSign = "AWS4-HMAC-SHA256\n20150830T123600Z\n20150830/us-east-1/service/aws4_request\nbb579772317eb040ac9ed261061d46c1f17a8133879d6129b6e1c25292927e63";
-    var signature = SNSRequest.calculateSignature(signingKey, stringToSign);
+    var signature = AWSRequest.calculateSignature(signingKey, stringToSign);
     expect(signature, "5fa00fa31553b73ebf1942676e86291e8372ff2a2260956d9b8aae1d763fbf31");
   });
 
   test("Vanilla Get", () {
-    var snsReq = new SNSRequest()
+    var snsReq = new AWSRequest()
         ..host = "example.amazonaws.com"
         ..service = "service"
         ..accessKey = "AKIDEXAMPLE"
@@ -34,7 +34,7 @@ void main() {
   });
 
   test("Vanilla Get Unreserved", () {
-    var snsReq = new SNSRequest()
+    var snsReq = new AWSRequest()
       ..host = "example.amazonaws.com"
       ..service = "service"
       ..accessKey = "AKIDEXAMPLE"
@@ -59,7 +59,7 @@ void main() {
   });
 
   test("Get Vanilla empty query key", () {
-    var snsReq = new SNSRequest()
+    var snsReq = new AWSRequest()
       ..host = "example.amazonaws.com"
       ..service = "service"
       ..accessKey = "AKIDEXAMPLE"
@@ -84,7 +84,7 @@ void main() {
   });
 
   test("Get Vanilla", () {
-    var snsReq = new SNSRequest()
+    var snsReq = new AWSRequest()
       ..host = "example.amazonaws.com"
       ..service = "service"
       ..accessKey = "AKIDEXAMPLE"
@@ -108,7 +108,7 @@ void main() {
   });
 
   test("Get Vanilla Order Key Case", () {
-    var snsReq = new SNSRequest()
+    var snsReq = new AWSRequest()
       ..host = "example.amazonaws.com"
       ..service = "service"
       ..accessKey = "AKIDEXAMPLE"
@@ -133,7 +133,7 @@ void main() {
   });
 
   test("Post Vanilla", () {
-    var snsReq = new SNSRequest()
+    var snsReq = new AWSRequest()
       ..host = "example.amazonaws.com"
       ..service = "service"
       ..accessKey = "AKIDEXAMPLE"
@@ -157,7 +157,7 @@ void main() {
   });
 
   test("Post Vanilla Query", () {
-    var snsReq = new SNSRequest()
+    var snsReq = new AWSRequest()
       ..host = "example.amazonaws.com"
       ..service = "service"
       ..accessKey = "AKIDEXAMPLE"
@@ -182,7 +182,7 @@ void main() {
   });
 
   test("Post Vanilla x-www-form-urlencoded", () {
-    var snsReq = new SNSRequest()
+    var snsReq = new AWSRequest()
       ..host = "example.amazonaws.com"
       ..service = "service"
       ..accessKey = "AKIDEXAMPLE"
@@ -210,7 +210,7 @@ void main() {
   });
 
   test("Post Vanilla x-www-form-urlencoded parameters", () {
-    var snsReq = new SNSRequest()
+    var snsReq = new AWSRequest()
       ..host = "example.amazonaws.com"
       ..service = "service"
       ..accessKey = "AKIDEXAMPLE"

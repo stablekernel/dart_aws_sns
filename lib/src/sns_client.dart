@@ -1,9 +1,15 @@
 part of aws_dart;
 
 class SNSClient extends AWSClient {
+  static String AuthorizationError = "AuthorizationError";
+  static String EndpointDisabled = "EndpointDisabled";
+  static String NotFound = "NotFound";
+  static String PlatformApplicationDisabled = "PlatformApplicationDisabled";
+
   Map<String, PlatformApplication> platformApplications = {};
 
-  Future<String> registerEndpoint(PlatformApplication app, String token, String userAssociationValue) async {
+  /// On success, the [values] will contain a single key, EndpointArn, with the registered endpoint arn.
+  Future<AWSResponse> registerEndpoint(PlatformApplication app, String token, String userAssociationValue) async {
     var req = new AWSRequest()
       ..method = "POST"
       ..region = app.region
@@ -23,20 +29,13 @@ class SNSClient extends AWSClient {
       return "$k=${Uri.encodeQueryComponent(values[k])}";
     }).join("&");
 
-    var response = await req.execute();
-    if (response.statusCode != 200) {
-      throw new ClientException(response.statusCode, response.body);
-    }
-
-    var regex = new RegExp("<EndpointArn>([^<]*)<\\/EndpointArn>");
-    var endpointARN = regex.firstMatch(response.body).group(1);
-
-    return endpointARN;
+    return await req.execute();
   }
 
+  /// On success, [values] will contain "MessageId".
   Future<bool> sendGCMNotification(PlatformApplicationEndpoint app, GCMNotification notification) async {
     if (app.platformApplication.platform != Platform.gcm) {
-      throw new ClientException(500, "Trying to send GCM notification to non-GCM endpoint.");
+      throw new AWSException(500, "Trying to send GCM notification to non-GCM endpoint.", null);
     }
 
     var req = new AWSRequest()
@@ -61,16 +60,18 @@ class SNSClient extends AWSClient {
     }).join("&");
 
     var response = await req.execute();
-    if (response.statusCode != 200) {
-      throw new ClientException(response.statusCode, response.body);
+    var error = response.error;
+    if (error != null) {
+      throw error;
     }
 
     return true;
   }
 
-  Future<bool> sendAPNSNotification(PlatformApplicationEndpoint app, APNSNotification notification) async {
+  /// On success, [values] will contain "MessageId".
+  Future<AWSResponse> sendAPNSNotification(PlatformApplicationEndpoint app, APNSNotification notification) async {
     if (!(app.platformApplication.platform == Platform.apns || app.platformApplication.platform == Platform.apnsSandbox)) {
-      throw new ClientException(500, "Trying to send APNS notification to non-APNS endpoint.");
+      throw new AWSException(500, "Trying to send APNS notification to non-APNS endpoint.", null);
     }
 
     var req = new AWSRequest()
@@ -94,11 +95,16 @@ class SNSClient extends AWSClient {
       return "$k=${Uri.encodeQueryComponent(values[k])}";
     }).join("&");
 
-    var response = await req.execute();
-    if (response.statusCode != 200) {
-      throw new ClientException(response.statusCode, response.body);
-    }
-
-    return true;
+    return await req.execute();
   }
+
+//  Future<EndpointAttributes> getEndpointAttributes(String endpointArn) async {
+//    var platform = new PlatformApplication.fromEndpoint(endpointArn);
+//    var req = new AWSRequest()
+//        ..method = "POST"
+//        ..region = platform.region
+//        ..service = platform.service;
+//
+//    return null;
+//  }
 }

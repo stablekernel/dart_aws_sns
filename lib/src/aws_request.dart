@@ -110,13 +110,14 @@ class AWSRequest {
     return "AWS4-HMAC-SHA256 Credential=$credentialScope, SignedHeaders=$signedHeaders, Signature=$signature";
   }
 
-  Future<http.Response> execute() async {
+  Future<AWSResponse> execute() async {
     timestamp = new DateTime.now().toUtc();
     if (method == "POST") {
       var h = headers;
       h["Authorization"] = authorizationHeader;
-      print("$h");
-      return await http.post("$scheme$host/${path ?? ""}", headers: h, body: requestBody);
+
+      var result = await http.post("$scheme$host/${path ?? ""}", headers: h, body: requestBody);
+      return new AWSResponse.fromHTTPResponse(result);
     }
 
     return null;
@@ -152,5 +153,56 @@ class AWSRequest {
           hmac.add(value);
           return hmac.close();
         });
+  }
+}
+
+class AWSResponse {
+  AWSResponse();
+  AWSResponse.fromHTTPResponse(http.Response resp) {
+    statusCode = resp.statusCode;
+    body = resp.body;
+
+    if (statusCode < 300) {
+      var doc = xml.parse(body);
+
+      xml.XmlElement element = doc.rootElement
+          .children
+          .firstWhere((n) => n is xml.XmlElement && n.name.local != "ResponseMetadata",
+            orElse: () => null);
+
+      values = {};
+      element?.children?.forEach((n) {
+        if (n is xml.XmlElement) {
+          values["${n.name}"] = n.text;
+        }
+      });
+    } else {
+      error = _parseErrorMap(body);
+    }
+  }
+
+  bool get wasSuccessful => statusCode < 300;
+  int statusCode;
+  String body;
+
+  Map<String, dynamic> values;
+  AWSException error;
+
+  AWSException _parseErrorMap(String body) {
+    var document = xml.parse(body);
+
+    xml.XmlElement errorNode = document.rootElement
+        .children
+        .firstWhere((n) => n is xml.XmlElement && n.name.local == "Error",
+          orElse: () => null);
+
+    var code = errorNode?.children?.
+      firstWhere((n) => n is xml.XmlElement && n.name.local == "Code",
+        orElse: () => null)?.text;
+    var message = errorNode?.children?.
+    firstWhere((n) => n is xml.XmlElement && n.name.local == "Message",
+        orElse: () => null)?.text;
+
+    return new AWSException(statusCode, message, code);
   }
 }

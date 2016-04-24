@@ -1,22 +1,22 @@
 part of aws_dart;
 
-class EmailOptions {
-
-  EmailOptions.fromConfig(Map<String, String> config) {
-    region = config["region"] ?? "us-east-1";
-    service = config["service"] ?? "ses";
-  }
-  EmailOptions({this.region:"us-east-1",this.service:"ses"});
-
+class EmailConfigurationItem extends ConfigurationItem {
   String region;
-  String service;
+  String accountID;
+}
+
+class EmailOptions extends ApplicationResource {
+  EmailOptions.fromConfiguration(EmailConfigurationItem config) :
+        super.forAccount(config.region, config.accountID);
+
+  EmailOptions(String region, String accountID) : super.forAccount(region, accountID);
+
+  String get service => "ses";
   String get host => "email.$region.amazonaws.com";
 }
 
 class Email {
-
-  Email(String from, String to, String subject, {String bodyHTML, String bodyText}) {
-    source = from;
+  Email(this.source, String to, String subject, {String bodyHTML, String bodyText}) {
     destination = new EmailDestination()..toAddresses = [to];
     message = new EmailMessage()
       ..subject = (new EmailContent()..data = subject);
@@ -32,6 +32,7 @@ class Email {
   String source;
   EmailDestination destination;
   EmailMessage message;
+
   Map<String, String> asMap() {
     var map = {
       "Source" : source,
@@ -44,6 +45,7 @@ class Email {
 
 class EmailDestination {
   List<String> toAddresses;
+
   Map<String, String> asMap() {
     var map = {};
     for (int i = 0; i < toAddresses?.length ?? 0; i++) {
@@ -74,7 +76,6 @@ class EmailMessage {
 class EmailBody {
   EmailContent text;
   EmailContent html;
-
 }
 
 class EmailContent {
