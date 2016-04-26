@@ -165,17 +165,10 @@ class AWSResponse {
     if (statusCode < 300) {
       var doc = xml.parse(body);
 
-      xml.XmlElement element = doc.rootElement
+      resultXMLElement = doc.rootElement
           .children
           .firstWhere((n) => n is xml.XmlElement && n.name.local != "ResponseMetadata",
             orElse: () => null);
-
-      values = {};
-      element?.children?.forEach((n) {
-        if (n is xml.XmlElement) {
-          values["${n.name}"] = n.text;
-        }
-      });
     } else {
       error = _parseErrorMap(body);
     }
@@ -185,7 +178,8 @@ class AWSResponse {
   int statusCode;
   String body;
 
-  Map<String, dynamic> values;
+  dynamic value;
+  xml.XmlElement resultXMLElement;
   AWSException error;
 
   AWSException _parseErrorMap(String body) {

@@ -21,6 +21,13 @@ abstract class AWSClient {
 
   String accessKey;
   String secretKey;
+
+  Future<AWSResponse> executeRequest(AWSRequest request) async {
+    request.secretKey = secretKey;
+    request.accessKey = accessKey;
+
+    return await request.execute();
+  }
 }
 
 class AWSException implements Exception {
