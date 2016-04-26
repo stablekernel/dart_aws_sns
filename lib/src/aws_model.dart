@@ -9,6 +9,21 @@ abstract class ApplicationResource {
 
   ApplicationResource();
   ApplicationResource.forAccount(this.region, this.accountID);
+
+  AWSRequest newRequest(Map<String, dynamic> values) {
+    var req = new AWSRequest()
+      ..method = "POST"
+      ..region = region
+      ..service = service
+      ..host = host;
+    req.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
+
+    req.requestBody = values.keys.map((k) {
+      return "$k=${Uri.encodeQueryComponent(values[k])}";
+    }).join("&");
+
+    return req;
+  }
 }
 
 class AWSConfiguration extends ConfigurationItem {

@@ -78,7 +78,6 @@ void main() {
 
     test("Create valid endpoint", () async {
       var resp = await client.safelyRegisterToken("iOS", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "1");
-      print("${resp.body}");
       expect(resp.statusCode, 200);
       expect(resp.value["endpointARN"], startsWith("arn:aws:sns"));
       subscribedEndpoint = resp.value["endpointARN"];
@@ -92,7 +91,6 @@ void main() {
 
     test("Re-register, different custom user data", () async {
       var resp = await client.safelyRegisterToken("iOS", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "12");
-      print("${resp.body}");
       expect(resp.statusCode, 200);
       expect(resp.value["endpointARN"], subscribedEndpoint);
     });

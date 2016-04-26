@@ -66,21 +66,6 @@ class PlatformApplication extends ApplicationResource {
     return new PlatformApplicationEndpoint(this, id);
   }
 
-  AWSRequest newRequest(Map<String, dynamic> values) {
-    var req = new AWSRequest()
-      ..method = "POST"
-      ..region = region
-      ..service = service
-      ..host = host;
-    req.headers["Content-Type"] = "application/x-www-form-urlencoded; charset=utf-8";
-
-    req.requestBody = values.keys.map((k) {
-      return "$k=${Uri.encodeQueryComponent(values[k])}";
-    }).join("&");
-
-    return req;
-  }
-
   String asARN() {
     return "arn:aws:sns:$region:$accountID:app/$platformString/$name";
   }
