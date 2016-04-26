@@ -1,11 +1,9 @@
 library aws_dart;
 
-import 'dart:io';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
 import 'dart:convert';
-import 'package:safe_config/safe_config.dart';
 import 'package:xml/xml.dart' as xml;
 
 part 'src/sns_payload.dart';

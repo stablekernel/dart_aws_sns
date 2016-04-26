@@ -4,7 +4,6 @@ description: A library for communicating with AWS SNS and SES.
 dependencies:
   http: any
   crypto: any
-  safe_config: any
   xml: 2.4.3
 dev_dependencies:
   test: any

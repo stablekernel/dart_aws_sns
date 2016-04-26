@@ -4,15 +4,6 @@ enum Platform {
   apns, apnsSandbox, gcm
 }
 
-class PlatformApplicationConfigurationItem extends ConfigurationItem {
-  String region;
-  String name;
-  String platform;
-
-  @optionalConfiguration
-  String accountID;
-}
-
 class PlatformApplication extends ApplicationResource {
   static Platform platformForString(String platformString) {
     switch (platformString) {
@@ -23,14 +14,7 @@ class PlatformApplication extends ApplicationResource {
     return null;
   }
 
-  PlatformApplication(String region, String accountID, this.platform, this.name) : super.forAccount(region, accountID);
-
-  PlatformApplication.fromConfiguration(PlatformApplicationConfigurationItem item) {
-    region = item.region;
-    accountID = item.accountID;
-    name = item.name;
-    platform = platformForString(item.platform);
-  }
+  PlatformApplication(String region, this.accountID, this.platform, this.name) : super.inRegion(region);
 
   PlatformApplication.fromEndpoint(String endpointARN) {
     var components = endpointARN.split(":");
@@ -49,6 +33,7 @@ class PlatformApplication extends ApplicationResource {
 
   Platform platform;
   String name;
+  String accountID;
   String get service => "sns";
   String get host {
     return "sns.$region.amazonaws.com";

@@ -1,15 +1,7 @@
 part of aws_dart;
 
-class EmailConfigurationItem extends ConfigurationItem {
-  String region;
-  String accountID;
-}
-
 class EmailOptions extends ApplicationResource {
-  EmailOptions.fromConfiguration(EmailConfigurationItem config) :
-        super.forAccount(config.region, config.accountID);
-
-  EmailOptions(String region, String accountID) : super.forAccount(region, accountID);
+  EmailOptions({String region: "us-east-1"}) : super.inRegion(region);
 
   String get service => "ses";
   String get host => "email.$region.amazonaws.com";

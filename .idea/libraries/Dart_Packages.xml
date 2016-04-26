@@ -156,13 +156,6 @@
             </list>
           </value>
         </entry>
-        <entry key="safe_config">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/safe_config-1.0.2/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="shelf">
           <value>
             <list>
@@ -286,7 +279,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/plugin-0.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/pool-1.2.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/pub_semver-1.2.3/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/safe_config-1.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/shelf-0.6.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/shelf_static-0.2.3+3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/shelf_web_socket-0.1.0/lib" />
