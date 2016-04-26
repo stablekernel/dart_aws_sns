@@ -120,4 +120,38 @@ void main() {
       expect(resp.statusCode, 404);
     });
   });
+
+  group("Disabled feedback", () {
+    var subscribedEndpoint = null;
+
+    test("Create valid endpoint", () async {
+      var resp = await client.safelyRegisterToken("iOS", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "1");
+      expect(resp.statusCode, 200);
+      expect(resp.value["endpointARN"], startsWith("arn:aws:sns"));
+      subscribedEndpoint = resp.value["endpointARN"];
+    });
+
+    test("Disable and get feedback", () async {
+      var resp = await client.setEndpointAttributes(subscribedEndpoint, enabled: false);
+      expect(resp.statusCode, 200);
+
+      var note = new APNSNotification()
+        ..alert = (new APNSAlert()
+          ..body = "Hello");
+
+      resp = await client.sendAPNSNotification(subscribedEndpoint, note);
+      expect(resp.statusCode, 400);
+
+      var nextDisableItem = await client.onDisable.first;
+      expect(nextDisableItem.asARN(), subscribedEndpoint);
+    });
+
+    test("Delete when done", () async {
+      var resp = await client.deleteEndpoint(subscribedEndpoint);
+      expect(resp.statusCode, 200);
+
+      resp = await client.getEndpointAttributes(subscribedEndpoint);
+      expect(resp.statusCode, 404);
+    });
+  });
 }

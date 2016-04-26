@@ -6,7 +6,7 @@ class SNSClient extends AWSClient {
   static String NotFound = "NotFound";
   static String PlatformApplicationDisabled = "PlatformApplicationDisabled";
 
-  Stream<PlatformApplicationEndpoint> onDisable;
+  Stream<PlatformApplicationEndpoint> get onDisable => _onDisableController.stream;
   StreamController<PlatformApplicationEndpoint> _onDisableController = new StreamController<PlatformApplicationEndpoint>();
   Map<String, PlatformApplication> platformApplications = {};
 
@@ -88,10 +88,6 @@ class SNSClient extends AWSClient {
 
     var result = await executeRequest(endpoint.platformApplication.newRequest(values));
     if (!result.wasSuccessful) {
-      return result;
-    }
-
-    if (!result.wasSuccessful) {
       if (result.error?.key == SNSClient.EndpointDisabled) {
         _onDisableController.add(endpoint);
       }
@@ -121,10 +117,6 @@ class SNSClient extends AWSClient {
     };
 
     var result = await executeRequest(endpoint.platformApplication.newRequest(values));
-    if (!result.wasSuccessful) {
-      return result;
-    }
-
     if (!result.wasSuccessful) {
       if (result.error?.key == SNSClient.EndpointDisabled) {
         _onDisableController.add(endpoint);
