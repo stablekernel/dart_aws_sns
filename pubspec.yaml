@@ -2,8 +2,8 @@ name: aws_sns
 version: 0.0.1
 description: A library for communicating with AWS SNS and SES.
 dependencies:
-  http: any
-  crypto: any
-  xml: 2.4.3
+  http: ^0.11.3
+  crypto: ^1.0.0
+  xml: ^2.4.3
 dev_dependencies:
-  test: any
+  test: ^0.12.13

@@ -76,9 +76,7 @@ class AWSRequest {
   }
 
   String get bodyHash {
-    var sha = new SHA256()
-        ..add(UTF8.encode(requestBody));
-    return toHex(sha.close());
+    return sha256.convert(UTF8.encode(requestBody)).toString();
   }
 
   String get amazonDateString {
@@ -91,14 +89,12 @@ class AWSRequest {
 
   String get stringToSign {
     var dateAsString = _timestamp.toIso8601String().split("T").first.replaceAll("-", "");
-    var sha = new SHA256()
-      ..add(UTF8.encode(canonicalRequest));
-    var hashedCanonicalRequest = sha.close();
+    var hashedCanonicalRequest = sha256.convert(UTF8.encode(canonicalRequest)).toString();
 
     return "AWS4-HMAC-SHA256\n"
         + amazonDateString + "\n"
         + "$dateAsString/$region/$service/aws4_request\n"
-        + toHex(hashedCanonicalRequest);
+        + "$hashedCanonicalRequest";
   }
 
   String get signature {
@@ -123,23 +119,9 @@ class AWSRequest {
     return null;
   }
 
-  static toHex(List<int> bytes) {
-    var hex = bytes.map((i) {
-      var hex = i.toRadixString(16);
-      if (hex.length == 1) {
-        hex = "0$hex";
-      }
-      return hex;
-    });
-    return hex.join("");
-  }
-
   static String calculateSignature(List<int> key, String inputString) {
-    var hmac = new HMAC(new SHA256(), key);
-    hmac.add(UTF8.encode(inputString));
-    var digest = hmac.close();
-
-    return toHex(digest);
+    var hmac = new Hmac(sha256, key);
+    return hmac.convert(UTF8.encode(inputString)).toString();
   }
 
   static List<int> calculateSigningKey(String secretKey, DateTime date, String region, String service) {
@@ -149,9 +131,8 @@ class AWSRequest {
     return [dateAsString, region, service, "aws4_request"]
         .map((str) => UTF8.encode(str))
         .fold(initialKey, (key, value) {
-          var hmac = new HMAC(new SHA256(), key);
-          hmac.add(value);
-          return hmac.close();
+          var hmac = new Hmac(sha256, key);
+          return hmac.convert(value).bytes;
         });
   }
 }
