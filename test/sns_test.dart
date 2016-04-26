@@ -78,19 +78,21 @@ void main() {
 
     test("Create valid endpoint", () async {
       var resp = await client.safelyRegisterToken("iOS", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "1");
+      print("${resp.body}");
       expect(resp.statusCode, 200);
       expect(resp.value["endpointARN"], startsWith("arn:aws:sns"));
       subscribedEndpoint = resp.value["endpointARN"];
     });
 
     test("Re-register, normal", () async {
-      var resp = await client.safelyRegisterToken("iOS", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "1", existingARN: subscribedEndpoint);
+      var resp = await client.safelyRegisterToken("iOS", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "1");
       expect(resp.statusCode, 200);
       expect(resp.value["endpointARN"], subscribedEndpoint);
     });
 
     test("Re-register, different custom user data", () async {
-      var resp = await client.safelyRegisterToken("iOS", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "12", existingARN: subscribedEndpoint);
+      var resp = await client.safelyRegisterToken("iOS", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "12");
+      print("${resp.body}");
       expect(resp.statusCode, 200);
       expect(resp.value["endpointARN"], subscribedEndpoint);
     });
@@ -103,7 +105,7 @@ void main() {
       expect(resp.statusCode, 200);
       expect(resp.value["enabled"], false);
 
-      resp = await client.safelyRegisterToken("iOS", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "12", existingARN: subscribedEndpoint);
+      resp = await client.safelyRegisterToken("iOS", "861f9359e2cd748e2a1ad73ba663bee3054c5f210e6d7bd603b68e086c557683", "12");
       expect(resp.statusCode, 200);
       expect(resp.value["endpointARN"], subscribedEndpoint);
 
@@ -111,7 +113,6 @@ void main() {
       expect(resp.statusCode, 200);
       expect(resp.value["enabled"], true);
     });
-
 
     test("Delete when done", () async {
       var resp = await client.deleteEndpoint(subscribedEndpoint);

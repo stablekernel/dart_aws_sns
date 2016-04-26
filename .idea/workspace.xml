@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="75220b8c-f003-41ae-b360-1738b4c4d598" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/src/aws_client.dart" afterPath="$PROJECT_DIR$/lib/src/aws_client.dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/src/aws_request.dart" afterPath="$PROJECT_DIR$/lib/src/aws_request.dart" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/src/sns_client.dart" afterPath="$PROJECT_DIR$/lib/src/sns_client.dart" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/src/sns_model.dart" afterPath="$PROJECT_DIR$/lib/src/sns_model.dart" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/sns_test.dart" afterPath="$PROJECT_DIR$/test/sns_test.dart" />
     </list>
     <ignored path="aws_sns.iws" />
@@ -32,10 +29,10 @@
       <file leaf-file-name="sns_client.dart" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/src/sns_client.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+            <state relative-caret-position="272">
+              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding>
-                <marker date="1461636282000" expanded="true" signature="6468:7973" placeholder="{...}" />
+                <marker date="1461638130000" expanded="true" signature="6889:8394" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -56,16 +53,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="107">
               <caret line="164" column="20" selection-start-line="164" selection-start-column="20" selection-end-line="164" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sns_model.dart" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/src/sns_model.dart">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="35" column="33" selection-start-line="35" selection-start-column="33" selection-end-line="35" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -94,8 +81,8 @@
       <file leaf-file-name="sns_test.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/sns_test.dart">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+            <state relative-caret-position="-9">
+              <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -269,7 +256,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
   </component>
-  <component name="RunManager" selected="Dart Test.tests in sns_test.dart">
+  <component name="RunManager" selected="Dart Test.Safe registration in sns_test.dart">
     <configuration default="false" name="tests in signing_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
       <option name="filePath" value="$PROJECT_DIR$/test/signing_test.dart" />
       <option name="testName" value="signing_test.dart" />
@@ -286,6 +273,18 @@
       <option name="filePath" value="$PROJECT_DIR$/test/sns_test.dart" />
       <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
       <option name="testName" value="Get endpoint attributes" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Create valid endpoint in sns_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/sns_test.dart" />
+      <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
+      <option name="testName" value="Create valid endpoint" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Safe registration in sns_test.dart" type="DartTestRunConfigurationType" factoryName="Dart Test" temporary="true" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/test/sns_test.dart" />
+      <option name="scope" value="GROUP_OR_TEST_BY_NAME" />
+      <option name="testName" value="Safe registration" />
       <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -587,17 +586,21 @@
       <option name="workingDirectory" value="$PROJECT_DIR$" />
       <method />
     </configuration>
-    <list size="4">
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Dart Command Line App.main.dart" />
       <item index="1" class="java.lang.String" itemvalue="Dart Test.tests in signing_test.dart" />
       <item index="2" class="java.lang.String" itemvalue="Dart Test.tests in sns_test.dart" />
       <item index="3" class="java.lang.String" itemvalue="Dart Test.Get endpoint attributes in sns_test.dart" />
+      <item index="4" class="java.lang.String" itemvalue="Dart Test.Create valid endpoint in sns_test.dart" />
+      <item index="5" class="java.lang.String" itemvalue="Dart Test.Safe registration in sns_test.dart" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Dart Test.tests in sns_test.dart" />
-        <item index="1" class="java.lang.String" itemvalue="Dart Test.Get endpoint attributes in sns_test.dart" />
-        <item index="2" class="java.lang.String" itemvalue="Dart Test.tests in signing_test.dart" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Dart Test.Safe registration in sns_test.dart" />
+        <item index="1" class="java.lang.String" itemvalue="Dart Test.tests in sns_test.dart" />
+        <item index="2" class="java.lang.String" itemvalue="Dart Test.Create valid endpoint in sns_test.dart" />
+        <item index="3" class="java.lang.String" itemvalue="Dart Test.Get endpoint attributes in sns_test.dart" />
+        <item index="4" class="java.lang.String" itemvalue="Dart Test.tests in signing_test.dart" />
       </list>
     </recent_temporary>
   </component>
@@ -618,26 +621,23 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="tests_in_sns_test_dart - 2016.04.25 at 21h 50m 29s.xml">
-      <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
+    <history-entry file="Create_valid_endpoint_in_sns_test_dart - 2016.04.25 at 22h 20m 07s.xml">
+      <configuration name="Create valid endpoint in sns_test.dart" configurationId="DartTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="tests_in_sns_test_dart - 2016.04.25 at 22h 00m 26s.xml">
-      <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
+    <history-entry file="Create_valid_endpoint_in_sns_test_dart - 2016.04.25 at 22h 20m 17s.xml">
+      <configuration name="Create valid endpoint in sns_test.dart" configurationId="DartTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="tests_in_sns_test_dart - 2016.04.25 at 22h 01m 02s.xml">
-      <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
+    <history-entry file="Create_valid_endpoint_in_sns_test_dart - 2016.04.25 at 22h 28m 07s.xml">
+      <configuration name="Create valid endpoint in sns_test.dart" configurationId="DartTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="tests_in_sns_test_dart - 2016.04.25 at 22h 01m 36s.xml">
-      <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
+    <history-entry file="Safe_registration_in_sns_test_dart - 2016.04.25 at 22h 28m 44s.xml">
+      <configuration name="Safe registration in sns_test.dart" configurationId="DartTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="tests_in_sns_test_dart - 2016.04.25 at 22h 02m 01s.xml">
-      <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
+    <history-entry file="Safe_registration_in_sns_test_dart - 2016.04.25 at 22h 29m 14s.xml">
+      <configuration name="Safe registration in sns_test.dart" configurationId="DartTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="tests_in_sns_test_dart - 2016.04.25 at 22h 02m 28s.xml">
-      <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="tests_in_sns_test_dart - 2016.04.25 at 22h 02m 54s.xml">
-      <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
+    <history-entry file="Safe_registration_in_sns_test_dart - 2016.04.25 at 22h 35m 27s.xml">
+      <configuration name="Safe registration in sns_test.dart" configurationId="DartTestRunConfigurationType" />
     </history-entry>
     <history-entry file="tests_in_sns_test_dart - 2016.04.25 at 22h 03m 27s.xml">
       <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
@@ -646,6 +646,9 @@
       <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
     </history-entry>
     <history-entry file="tests_in_sns_test_dart - 2016.04.25 at 22h 04m 35s.xml">
+      <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="tests_in_sns_test_dart - 2016.04.25 at 22h 28m 21s.xml">
       <configuration name="tests in sns_test.dart" configurationId="DartTestRunConfigurationType" />
     </history-entry>
   </component>
@@ -662,7 +665,7 @@
       <window_info id="Dart Analysis" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29222798" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32192415" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27875647" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27844587" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973376" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -692,7 +695,15 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="Dart">
+          <url>file://$PROJECT_DIR$/test/sns_test.dart</url>
+          <line>72</line>
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -706,7 +717,7 @@
         <state relative-caret-position="0">
           <caret line="84" column="0" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
           <folding>
-            <marker date="1461636282000" expanded="true" signature="6468:7973" placeholder="{...}" />
+            <marker date="1461638130000" expanded="true" signature="6889:8394" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -739,7 +750,7 @@
         <state relative-caret-position="0">
           <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
           <folding>
-            <marker date="1461636282000" expanded="true" signature="6468:7973" placeholder="{...}" />
+            <marker date="1461638130000" expanded="true" signature="6889:8394" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -751,7 +762,7 @@
         <state relative-caret-position="0">
           <caret line="7" column="43" selection-start-line="7" selection-start-column="43" selection-end-line="7" selection-end-column="43" />
           <folding>
-            <marker date="1461636282000" expanded="true" signature="6468:7973" placeholder="{...}" />
+            <marker date="1461638130000" expanded="true" signature="6889:8394" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -778,7 +789,7 @@
         <state relative-caret-position="0">
           <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
           <folding>
-            <marker date="1461636282000" expanded="true" signature="6468:7973" placeholder="{...}" />
+            <marker date="1461638130000" expanded="true" signature="6889:8394" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -948,34 +959,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/src/ses_model.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="48" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/src/aws_client.dart">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
           <caret line="28" column="35" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/src/aws_request.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="164" column="20" selection-start-line="164" selection-start-column="20" selection-end-line="164" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/ses_test.dart">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1004,20 +991,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/aws_request.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="164" column="20" selection-start-line="164" selection-start-column="20" selection-end-line="164" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/ses_test.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/src/ses_model.dart">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="48" selection-start-line="7" selection-start-column="48" selection-end-line="7" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/sns_test.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+        <state relative-caret-position="-9">
+          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/src/sns_client.dart">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+        <state relative-caret-position="272">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
-            <marker date="1461636282000" expanded="true" signature="6468:7973" placeholder="{...}" />
+            <marker date="1461638130000" expanded="true" signature="6889:8394" placeholder="{...}" />
           </folding>
         </state>
       </provider>

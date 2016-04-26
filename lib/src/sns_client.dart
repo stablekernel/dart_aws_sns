@@ -10,25 +10,39 @@ class SNSClient extends AWSClient {
   StreamController<PlatformApplicationEndpoint> _onDisableController = new StreamController<PlatformApplicationEndpoint>();
   Map<String, PlatformApplication> platformApplications = {};
 
-  Future<AWSResponse> safelyRegisterToken(String platformApplicationKey, String token, String userAssociatedValue, {String existingARN: null}) async {
-    if (existingARN == null) {
-      return await registerEndpoint(platformApplicationKey, token, userAssociatedValue);
+  Future<AWSResponse> safelyRegisterToken(String platformApplicationKey, String token, String userAssociatedValue) async {
+    var resp = await registerEndpoint(platformApplicationKey, token, userAssociatedValue);
+    var registeredArn = null;
+    if (!resp.wasSuccessful) {
+      if (resp.error.key != AWSClient.InvalidParameter) {
+        return resp;
+      }
+
+      var regex = new RegExp(r"Endpoint ([\S]+) already exists with the same Token, but different attributes");
+      var match = regex.firstMatch(resp.error.message);
+      if (match == null) {
+        return resp;
+      }
+
+      registeredArn = match.group(1);
+    } else {
+      registeredArn = resp.value["endpointARN"];
     }
 
-    var resp = await getEndpointAttributes(existingARN);
+    resp = await getEndpointAttributes(registeredArn);
     if (resp.value["customUserData"] == userAssociatedValue && resp.value["enabled"] == true) {
       return new AWSResponse()
-        ..value = {"endpointARN" : existingARN}
+        ..value = {"endpointARN" : registeredArn}
         ..statusCode = 200;
     }
 
-    var attributesResponse = await setEndpointAttributes(existingARN, enabled: true, userAssociatedValue: userAssociatedValue);
+    var attributesResponse = await setEndpointAttributes(registeredArn, enabled: true, userAssociatedValue: userAssociatedValue);
     if (!attributesResponse.wasSuccessful) {
       return attributesResponse;
     }
 
     return new AWSResponse()
-      ..value = {"endpointARN" : existingARN}
+      ..value = {"endpointARN" : registeredArn}
       ..statusCode = 200;
   }
 
