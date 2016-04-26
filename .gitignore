@@ -3,3 +3,5 @@
 .pub/
 packages
 pubspec.lock # (Remove this pattern if you wish to check in your lock file)
+workspace.xml
+Dart_Packages.xml
